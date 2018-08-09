@@ -162,7 +162,13 @@ class Game(object):
             self.is_valid_move = False
                         
 
-##
+##Restart text
+fontObj = pygame.font.Font ( tile.tile.text_font , 19 )
+textSurfObj_R = fontObj.render ( "Restart" , True, TEXT_DARK )
+textRectObj_R = textSurfObj_R.get_rect()
+textRectObj_R.topright = ( WIN_SIZE + TILE_PADDING, TILE_PADDING)
+
+##2048 text
 fontObj = pygame.font.Font ( tile.tile.text_font , HEADER_S - 4*TILE_PADDING )
 textSurfObj = fontObj.render ( "2048" , True, TEXT_DARK )
 textRectObj = textSurfObj.get_rect()
@@ -174,39 +180,48 @@ def draw_header( SURF):
     #writing 2048
     SURF.blit( textSurfObj , textRectObj )
 
+    #writing Restart
+    SURF.blit( textSurfObj_R , textRectObj_R )
+
+    #pygame.draw.rect(SURF, BLACK, textRectObj_R, 2)
+    #pygame.draw.rect(SURF, BLACK, textRectObj, 2)
 
 
-if __name__ == '__main__':
+##
+SURF_2048 = pygame.Surface(( WIN_SIZE, WIN_SIZE))
 
-    SURF_2048 = pygame.Surface(( WIN_SIZE, WIN_SIZE))
+SURF = pygame.display.set_mode( ( WIN_SIZE + 2*TILE_PADDING, WIN_SIZE + HEADER_S + TILE_PADDING) )
+pygame.display.set_caption("2048")
+pygame.display.set_icon( pygame.image.load( "2048_icon.png" ))
+
+clock = pygame.time.Clock()
+
+#Start Game
+game = Game()
+game.initialize()
+
+while True:
+    for event in pygame.event.get():
+        if (event.type == QUIT ):
+            pygame.quit()
+            sys.exit()
+
+        #restart if clicked on restart
+        if event.type == MOUSEBUTTONDOWN and textRectObj_R.collidepoint(pygame.mouse.get_pos()):
+            #initialize game again
+            game.initialize()      
+
+        #call event handler
+        game.event_handler( event )
+
+    #call animation handler
+    game.anim_handler()
+
+    #draw the game
+    game.draw( SURF_2048 )
     
-    SURF = pygame.display.set_mode( ( WIN_SIZE + 2*TILE_PADDING, WIN_SIZE + HEADER_S + TILE_PADDING) )
-    pygame.display.set_caption("2048")
-    pygame.display.set_icon( pygame.image.load( "2048_icon.png" ))
-
-    clock = pygame.time.Clock()
-
-    #Start Game
-    game = Game()
-    game.initialize()
-
-    while True:
-        for event in pygame.event.get():
-            if (event.type == QUIT ):
-                pygame.quit()
-                sys.exit()
-
-            #call event handler
-            game.event_handler( event )
-
-        #call animation handler
-        game.anim_handler()
-
-        #draw the game
-        game.draw( SURF_2048 )
+    draw_header( SURF)
+    SURF.blit( SURF_2048, ( TILE_PADDING, HEADER_S) )
         
-        draw_header( SURF)
-        SURF.blit( SURF_2048, ( TILE_PADDING, HEADER_S) )
-            
-        pygame.display.update()
-        clock.tick(60)
+    pygame.display.update()
+    clock.tick(60)

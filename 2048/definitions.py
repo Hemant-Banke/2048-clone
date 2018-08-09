@@ -1,6 +1,6 @@
 """Size definitions"""
 
-TILE_ORDER         = 5
+TILE_ORDER         = 4
 TILE_PADDING       = 8
 TILE_SIZE          = 63
 TILE_RADIUS        = int( TILE_SIZE /20 )
@@ -82,13 +82,11 @@ def find_pairs( tile_ins ):
                 #check pair in x
                 if ( x+1, y) in tile_ins.keys() and tile_ins[( x+1, y)] :
                     if tile_ins[( x, y)].degree == tile_ins[( x+1, y)].degree :
-                        print "pair"
                         return True
 
                 #check pair in y
                 if ( x, y-1) in tile_ins.keys() and tile_ins[( x, y-1)] :
                     if tile_ins[( x, y)].degree == tile_ins[( x, y-1)].degree :
-                        print "pair"
                         return True
     return False
  
@@ -104,7 +102,7 @@ def is_filled( tile_ins ):
 
 #Movement Methods
 
-#Need to find a way to merge all four in one algorithm without making it complicated
+#Need to find a way to merge all four in one function without making it complicated
 
 def move_up( game_obj ):
     """moves tiles UP
