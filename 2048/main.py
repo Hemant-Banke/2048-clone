@@ -115,11 +115,11 @@ class Game(object):
 
 
     def debug_anim_space( self ):
-        print "..."
-        for key in self.tile_ins.keys():
+        print("...")
+        for key in list(self.tile_ins.keys()):
             if len(key) == 3:
-                print key
-        print "..."
+                print(key)
+        print("...")
     
 
     def event_handler( self, event ):
@@ -129,12 +129,12 @@ class Game(object):
         
         #check for game over
         if self.is_game_over():
-            print "Game Over!"
+            print("Game Over!")
             return
         
         #delete all tiles in animation space
         if not tile.tile.is_anim:
-            for pos in self.tile_ins.keys():
+            for pos in list(self.tile_ins.keys()):
                 if len(pos) == 3:
                     del self.tile_ins[pos]
 

@@ -80,12 +80,12 @@ def find_pairs( tile_ins ):
             #if pair exists in x or y
             if tile_ins[( x, y)]:
                 #check pair in x
-                if ( x+1, y) in tile_ins.keys() and tile_ins[( x+1, y)] :
+                if ( x+1, y) in list(tile_ins.keys()) and tile_ins[( x+1, y)] :
                     if tile_ins[( x, y)].degree == tile_ins[( x+1, y)].degree :
                         return True
 
                 #check pair in y
-                if ( x, y-1) in tile_ins.keys() and tile_ins[( x, y-1)] :
+                if ( x, y-1) in list(tile_ins.keys()) and tile_ins[( x, y-1)] :
                     if tile_ins[( x, y)].degree == tile_ins[( x, y-1)].degree :
                         return True
     return False
@@ -94,7 +94,7 @@ def find_pairs( tile_ins ):
 def is_filled( tile_ins ):
     """returns True if board is filled
     """
-    for tile in tile_ins.values():
+    for tile in list(tile_ins.values()):
         if tile == None:
             return False
     return True

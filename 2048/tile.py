@@ -109,11 +109,11 @@ def tile_draw( SURF, tile_ins ):
         tile_ins : dictionary containing instances of all spawned tiles
     """
     #draw tiles in animation space first so that they are drawn at bottom
-    for key in [ x for x in tile_ins.keys() if len(x) == 3 ]  :
+    for key in [ x for x in list(tile_ins.keys()) if len(x) == 3 ]  :
         if tile_ins[key]:
             tile_ins[key].draw( SURF )
 
-    for key in [ x for x in tile_ins.keys() if len(x) == 2 ]  :
+    for key in [ x for x in list(tile_ins.keys()) if len(x) == 2 ]  :
         if tile_ins[key]:
             tile_ins[key].draw( SURF )
 
@@ -121,7 +121,7 @@ def tile_anim( tile_ins ):
     """calls animation handler of all tiles in tile_ins
         tile_ins : dictionary containing instances of all spawned tiles
     """
-    for tile in tile_ins.values() :
+    for tile in list(tile_ins.values()) :
         if tile:
             tile.anim_handler()    
 
